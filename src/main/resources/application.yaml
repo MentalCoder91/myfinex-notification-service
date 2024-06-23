@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: "notification-service"
+  cloud:
+    function:
+      definition: email
+    stream:
+      bindings:
+        email-in-0:
+          destination: send-communication
+          group: ${spring.application.name}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: anish.alwekar@gmail.com
+    password: pptmiccxhbijlkiv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  port: 9096
+
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+  serviceUrl:
+    defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
